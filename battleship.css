@@ -1,0 +1,37 @@
+table {
+  border:             1px solid rgb(70, 68, 68);
+  background:         rgb(64, 181, 220);
+}
+  
+td {
+  border:             1px solid rgb(70, 68, 68);
+  padding:            20px;
+}
+  
+td.masked {
+  background:         rgb(64, 181, 220);
+  color:              transparent;
+}
+
+td.miss {
+  background:         white;
+  border-radius:      50%;
+}
+td.hit {
+  background:         red;  
+  border-radius:      50%;
+}
+td.sunken {
+  background:         rgb(188, 1, 1);  
+  border-radius:      50%;
+}
+
+td.masked:hover {
+  background-color:   rgb(86, 175, 226);  
+}
+td.masked:active {
+  background-color:   rgb(131, 74, 218);
+}
+body{
+  padding:            25px;
+}
