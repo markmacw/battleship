@@ -1,7 +1,7 @@
 //////////////////////////////////////////////////////
 // ------------------- OBJECTS --------------------//
-
-const gridWidth = 10;
+//////////////////////////////////////////////////////
+export const gridWidth = 10;
 const gridHeight = 10;
 const shipTypes = {
     carrier:    5,
@@ -17,9 +17,10 @@ var grid;
 
 window.onload = function() {
 
-    /////// CURRENTLY NOT BEING USED ///////////////////////////////////////////
+//////////////////////////////////////////////////////
+    /////// CURRENTLY NOT BEING USED /////////////////
     // document.getElementById('simpleGame').onclick = simpleGame;
-//////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////
     grid = makeBlankGrid();
 // TODO -> work on the below function.  Try to break things down into simpler examples.  Start with a randomly assigned just one ship picked from the list of ships.
     placeOneShip(grid,shipTypes.cruiser);
@@ -139,6 +140,7 @@ function placeOneShip(grid, shipLength){
 
 //////////////////////////////////////////////////////
 // ------------------- OLD OR UI --------------------//
+//////////////////////////////////////////////////////
 
 function addTableDataToRow(){
     var randomBoardIndex = Math.floor(Math.random()*boardChoices.length);
