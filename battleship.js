@@ -1,56 +1,44 @@
 //////////////////////////////////////////////////////
 // ------------------- OBJECTS --------------------//
 //////////////////////////////////////////////////////
-export const gridWidth = 10;
+const gridWidth = 10;
 const gridHeight = 10;
-const shipTypes = {
+const shipTypes = {         // key/value pairs in object
     carrier:    5,
     battleship: 4,
     cruiser:    3,
     submarine:  3,
     destroyer:  2
 };
-const directions = ["vertical","horizontal"];
+const directions = ["horizontal","vertical"];
 var gameStatus;
 var sunkenShips;
-var grid;
+var mainGrid;
+
+const test_name = "||| > TEST: "
+const validation = "   EXPECT: "
+const indent = "    >  ";
+const test_note = "    *  ";
+const result_pass = "RESULT: PASS             :)";
+const result_fail = "RESULT: FAIL                 :(";
 
 window.onload = function() {
-
 //////////////////////////////////////////////////////
-    /////// CURRENTLY NOT BEING USED /////////////////
-    // document.getElementById('simpleGame').onclick = simpleGame;
+// ------------------- RUN TESTS --------------------//
 //////////////////////////////////////////////////////
-    grid = makeBlankGrid();
-// TODO -> work on the below function.  Try to break things down into simpler examples.  Start with a randomly assigned just one ship picked from the list of ships.
-    placeOneShip(grid,shipTypes.cruiser);
-
-    //MAKE THE FOLLOWING SECTION INTO ONE LOOP --- TO ITERATE UNTIL YOU HAVE A SHIP PLACED
-    // var currentCoordinate = getRandomCoordinate();
-    // var potentialShipCoordinates = []
-    // var nextCoordinateIsAvailable = isCoordinateAvailable(currentCoordinate[0],currentCoordinate[1]);
-    // if (nextCoordinateIsAvailable){
-    //     potentialShipCoordinates.push([currentCoordinate[0],currentCoordinate[1]]);
-    // };
-    // var direction = getRandomDirection(); // NOTE - I may need to do something about seeding random to ensure it really is random
-    // var nextCoordinate = getNextCoordinate(currentCoordinate,direction);
-    // nextCoordinateIsAvailable = isCoordinateAvailable(nextCoordinate[0],nextCoordinate[1]);
-    // if (nextCoordinateIsAvailable){
-    //     potentialShipCoordinates.push([nextCoordinate[0],nextCoordinate[1]]);
-    // };
-//---------------------------------------------------------------------------------------
-
-
-
-
-    // If free - update the grid...print to console so I have feedback on how this is going.
-    // Continue the above until you finish the lenght of the ship (start with a random 4, if that helps simplify things)
-    // Once done - repeate the above for the next ship
-    // Kepp doing that until all ships are marked.
-    // Print grid --- that is your grid.
+    getBlankGrid_spec();
+    getRandomDirection_spec();
+    getRandomCoordinate_spec();
+    isCoordinateAvailable_spec();
+    // getNextCoordinate_spec();
+    tryShipPlacement_spec();
+    // but I need to add a number of conditions where the array fails to increment into a legal area...
+    // and maybe also ones where the grid being used is not actually empty.
+    // WORKING SECTION
+    mainGrid = getBlankGrid();
 }
 
-function makeBlankGrid(){ // Create a blank 10x10 grid in Javascript only --- note that it is represented as grid[y][x] which is counterintuitive, but easy to preview in js
+function getBlankGrid(){ // Create a blank 10x10 grid in Javascript only --- note that it is represented as grid[y][x] which is counterintuitive, but easy to preview in js
     var grid = [];
     for (let row = 0; row < gridWidth; row++) {  // Inserts rows
         grid[row] = [];
@@ -61,9 +49,31 @@ function makeBlankGrid(){ // Create a blank 10x10 grid in Javascript only --- no
     return grid;
 }
 
+function getBlankGrid_spec(){
+    console.log(test_name + "getBlankGrid_spec");
+    console.log(validation + "grid has 10 columns and 10 rows");
+    var grid = getBlankGrid();
+    if (grid.length == 10 && grid[0].length == 10) {
+        console.log(indent + result_pass);
+    } else {
+        console.log(indent + result_fail);
+    }
+};
+
 function getRandomDirection(){
     var randomDirection = directions[Math.floor(Math.random()*directions.length)];
     return randomDirection;
+}
+
+function getRandomDirection_spec(){
+    console.log(test_name + "getRandomDirection_spec");
+    console.log(validation + "direction is returned");
+    var randomDirection = getRandomDirection();
+    if(randomDirection == "vertical" || randomDirection == "horizontal"){
+        console.log(indent + result_pass);
+    } else {
+        console.log(indent + result_fail);
+    }
 }
 
 function getRandomCoordinate(){
@@ -76,7 +86,19 @@ function getRandomCoordinate(){
     return [getRandomColumn(),getRandomRow()];
 }
 
-function isCoordinateAvailable(row,column){
+function getRandomCoordinate_spec(){
+    console.log(test_name + "getRandomCoordinate_spec");
+    console.log(validation + "coordinate is returned");
+    var randomCoordinate = getRandomCoordinate();
+    if(randomCoordinate[0] >= 0 && randomCoordinate[0] <= 10
+        && randomCoordinate[1] >= 0 && randomCoordinate[1] <= 10){
+        console.log(indent + result_pass);
+    } else {
+        console.log(indent + result_fail);
+    }
+}
+
+function isCoordinateAvailable(grid,row,column){
     var coordinateValue = grid[row][column];
     if (coordinateValue == 0) {
         return true;
@@ -85,63 +107,168 @@ function isCoordinateAvailable(row,column){
     }
 }
 
-function getNextCoordinate(currentCoordinate,direction) {
-    var nextCoordinate = [];
-    switch (direction) {
-        case "vertical":
-            nextCoordinate = [currentCoordinate[0],currentCoordinate[1]+1];
-            break;
-        case "horizontal":
-            nextCoordinate = [currentCoordinate[0]+1,currentCoordinate[1]];
-            break;
-        default:
-            break;
-    }
-    return nextCoordinate;
-}
-
-function placeOneShip(grid, shipLength){
-    var direction = getRandomDirection();
-    var currentCoordinate = getRandomCoordinate();
-    var column = currentCoordinate[0];
-    var row = currentCoordinate[1];
-    var candidateCoordinates = [];
-    if(direction == "horizontal"){
-        console.log("Do the horizontal");
-        for (let index = 0; index < shipLength; index++) {
-            if(grid[row][column+index] == 0){                                // If grid is free - then add to set of candidate coordinates
-                candidateCoordinates.push([row,column+index]);
-                console.log("candidateCoordinates:") + console.log(candidateCoordinates);               // LOG - DEV TEST
-            } else {
-                //TODO: THIS HAS FAILED AND WE NEED TO RETRY WITH A NEW INITIAL COORDINATE in order to run this scenario -I am going to have to have some good mock data.
-                // Not really sure how to mock that data - except to make a function that creates a function with data in it... or I could develope this first part and it will
-                // create the data for me... either one...maybe make a mock data - that would be good practice and interesting from the QA perspective.
-            }      
-        }
-    } else if(direction == "vertical") { 
-        console.log("Do the vertical");
-        for (let index = 0; index < shipLength; index++) {
-            if(grid[row+index][column] == 0){                                // If grid is free - then add to set of candidate coordinates
-                candidateCoordinates.push([row+index,column]);
-                console.log("candidateCoordinates:") + console.log(candidateCoordinates);               // LOG - DEV TEST
-            } else {
-                //TODO: THIS HAS FAILED AND WE NEED TO RETRY WITH A NEW INITIAL COORDINATE <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
-            }       
-        }
+function isCoordinateAvailable_spec(){
+    console.log(test_name + "isCoordinateAvailable_spec");
+    console.log(validation + "checks for coordinate being available -- positive test condition:");
+    var testGrid = getBlankGrid();
+    var coordinateAvailability = isCoordinateAvailable(testGrid,0,0);
+    if(coordinateAvailability == true){
+        console.log(indent + result_pass);
     } else {
-        console.log("ERROR: Direction not assigned")
+        console.log(indent + result_fail);
     }
-
-    // TODO: COMPLETE THE ARRAY AND ACTUALLY ADD IT TO THE MAIN GRID SOME
+    console.log(validation + "checks for coordinate being available -- negative test condition:");
+    testGrid[1,2] = "battleship";
+    var coordinateAvailability = isCoordinateAvailable(testGrid,1,2);
+    if(coordinateAvailability == true){
+        console.log(indent + result_pass);
+    } else {
+        console.log(indent + result_fail);
+    }
 }
 
+// function getNextCoordinate(currentCoordinate,direction) {
+//     var nextCoordinate = [];
+//     switch (direction) {
+//         case "vertical":        // vertical changes the first value in the array, which represents the row number
+//             nextCoordinate = [currentCoordinate[0]+1,currentCoordinate[1]];
+//             break;
+//         case "horizontal":      // horizontal changes the second value in the array, which represents the column number.
+//             nextCoordinate = [currentCoordinate[0],currentCoordinate[1]+1];
+//             break;
+//         default:
+//             break;
+//     }
+//     return nextCoordinate;
+// }
 
+// function getNextCoordinate_spec(){
+//     console.log(test_name + "getNextCoordinate_spec");
+//     function test_vertical(){
+//         console.log(validation + "Test 1: coordinate is returned and incremented vertically");
+//         var nextCoordinate = getNextCoordinate([10,10],"vertical");
+//         if(nextCoordinate[0] === 11 && nextCoordinate[1] === 10){
+//         console.log(indent + result_pass);
+//         } else {
+//             console.log(indent + result_fail);
+//         }
+//         console.log(nextCoordinate);
+//         console.log(validation + "Test 2: coordinate is returned and incremented horizontal");
+//     }
+//     function test_horizontal(){
+//         nextCoordinate = getNextCoordinate([10,10],"horizontal");
+//         if(nextCoordinate[0] === 10 && nextCoordinate[1] === 11){
+//             console.log(indent + result_pass);
+//         } else {
+//             console.log(indent + result_fail);
+//         }
+//         console.log(nextCoordinate);
+//     }
+//     test_vertical();
+//     test_horizontal();
+// }
+
+function tryShipPlacement(direction, grid, shipType, startingCoordinate){
+    var shipLength = shipTypes[shipType];
+    var row = startingCoordinate[0];
+    var column = startingCoordinate[1];
+    var confirmedAvailableCoordinates = [];
+    switch(direction){
+        case "horizontal":        
+            for (var index = 0; index < shipLength; index++) {
+                if(grid[row][column+index] == 0){
+                    confirmedAvailableCoordinates.push([row,column+index]);
+                } else {
+                    confirmedAvailableCoordinates = [];
+                    break;
+                }      
+            }
+            return confirmedAvailableCoordinates;
+        case "vertical":
+            for (var index = 0; index < shipLength; index++) {
+                
+                if(grid[row+index][column] == 0){      // TODO: The problem with my tests lies here somewhere with undefined
+                    console.log("before push" + confirmedAvailableCoordinates);
+                    confirmedAvailableCoordinates.push([row+index,column]);
+                    console.log("after push" + confirmedAvailableCoordinates);
+                } else {
+                    confirmedAvailableCoordinates = [];
+                    break;
+                }      
+            }
+            return confirmedAvailableCoordinates;
+    }
+
+    // if(isCoordinateAvailable(grid,row,column)){
+    //     console.log("coordinate is available");
+    // } else {
+    //     console.log("coordinate is not available");
+    // }
+
+    
+
+}
+
+function tryShipPlacement_spec(){
+    console.log(test_name + "tryShipPlacement_spec");
+    function positive_test_horizontal(){
+        console.log(validation + "Horizontal Positive test - should return a full coordinate set.");
+        var testGrid = getBlankGrid();
+        var resultCoordinates = tryShipPlacement("horizontal", testGrid, "carrier", [8,5]);
+        console.log(resultCoordinates);
+        if(resultCoordinates[4] != null){
+            console.log(indent + result_pass);
+        } else {
+            console.log(indent + result_fail);
+        }
+    }
+    function negative_test_horizontal(){
+        console.log(validation + "Horizontal Negative test - should return a blank coordinate set.");
+        var testGrid = getBlankGrid();
+        var resultCoordinates = tryShipPlacement("horizontal", testGrid, "carrier", [1,8]);
+        console.log(resultCoordinates);
+        if(resultCoordinates[0] == null){
+            console.log(indent + result_pass);
+        } else {
+            console.log(indent + result_fail);
+        }
+    }
+    function positive_test_vertical(){
+        console.log(validation + "Vertical Positive test - should return a full coordinate set.");
+        var testGrid = getBlankGrid();
+        var resultCoordinates = tryShipPlacement("vertical", testGrid, "carrier", [5,8]);
+        console.log(resultCoordinates);
+        if(resultCoordinates[4] != null){
+            console.log(indent + result_pass);
+        } else {
+            console.log(indent + result_fail);
+        }
+    }
+    function negative_test_vertical(){
+        console.log(validation + "Vertical Negative test - should return a blank coordinate set.");
+        var testGrid = getBlankGrid();
+        console.log(resultCoordinates);
+        var resultCoordinates = tryShipPlacement("vertical", testGrid, "carrier", [8,2]);
+        console.log(resultCoordinates);
+        if(resultCoordinates[0] == null){
+            console.log(indent + result_pass);
+        } else {
+            console.log(indent + result_fail);
+        }
+    }
+
+    positive_test_horizontal();
+    negative_test_horizontal();
+    positive_test_vertical();
+    negative_test_vertical();
+}
 
 
 //////////////////////////////////////////////////////
 // ------------------- OLD OR UI --------------------//
 //////////////////////////////////////////////////////
 
+/**
 function addTableDataToRow(){
     var randomBoardIndex = Math.floor(Math.random()*boardChoices.length);
     board = boardChoices[randomBoardIndex];
@@ -222,3 +349,5 @@ function simpleGame(){
     addTableDataToRow();
     document.getElementById('simpleGame').onclick = null;
 }
+
+ */
