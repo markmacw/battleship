@@ -11,6 +11,7 @@ const ships = {         // key/value pairs in object
     destroyer:  2
 };
 const directions = ["horizontal","vertical"];
+let mainGrid;
 
 const test_name = "||| > TEST: "
 const validation = "   EXPECT: "
@@ -29,7 +30,7 @@ window.onload = function() {
     shipPlacementAvailability_spec();
     placeOneShip_spec(getBlankGrid());
 
-    var mainGrid = buildMainGrid();
+    mainGrid = buildMainGrid();
 }
 
 function getBlankGrid(){ // Create a blank 10x10 grid in Javascript only --- note that it is represented as grid[y][x] which is counterintuitive, but easy to preview in js
