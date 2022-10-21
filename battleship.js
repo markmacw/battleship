@@ -29,7 +29,10 @@ window.onload = function() {
     getRandomCoordinate_spec();
     shipPlacementAvailability_spec();
     placeOneShip_spec(getBlankGrid());
-
+    buildMainGrid_spec();
+//////////////////////////////////////////////////////
+// ------------------- MAKE DATA --------------------//
+//////////////////////////////////////////////////////
     mainGrid = buildMainGrid();
 }
 
@@ -38,7 +41,7 @@ function getBlankGrid(){ // Create a blank 10x10 grid in Javascript only --- not
     for (let row = 0; row < gridWidth; row++) {  // Inserts rows
         grid[row] = [];
         for (let column = 0; column < gridWidth; column++) {
-            grid[row][column] = 0;            
+        grid[row][column] = 0;            
         }
     }
     return grid;
@@ -227,4 +230,32 @@ function buildMainGrid(){
         placeOneShip(grid,shipName);
     }
     return grid;
+}
+
+function buildMainGrid_spec(){
+    console.log(test_name + "buildMainGrid_spec");    
+    console.log(validation + "Check that all ships exist in their full length:");
+    var testGrid = buildMainGrid();
+    var numberOfShipsChecked = 0;
+    for (const [shipName, length] of Object.entries(ships)) {
+        numberOfShipsChecked++;
+        var shipLength = 0;
+        for (let row = 0; row < testGrid.length; row++) {
+            var innerArrayLength = testGrid[row].length;
+            for (let column = 0; column < innerArrayLength; column++) {
+                if(testGrid[row][column]==shipName){
+                    shipLength++;
+                }            
+            }        
+        }
+        if(shipLength!=ships.length){
+            console.log(indent + result_fail);
+            break;
+        } else {
+            if (ships.length - 1 === numberOfShipsChecked){
+                console.log(indent + result_fail);
+            }
+        }
+    }
+    console.log(testGrid);
 }
