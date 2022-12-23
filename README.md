@@ -41,6 +41,9 @@ The idea for this project was originally generated from the book "Head First Jav
         3. The computer grid side is set by the system
         4. The user's grid is set by themselves (Drag / drop functionality - or just click the grid and then specify the positioning (up/down or left/right)) 
 
+Roughly June 30, 2022 - I started this project after seeing it in the "Head First JavaScript Programming" book.
+
+8/30/2022 Initial commit - started 
 
 9/23/2022
 Version 0.2.0 => removed all of the Cypress testing files.
@@ -83,3 +86,71 @@ all that work go to waste... the next thing that I need to do is:
    and just copy over what I need or clone an old version of the thing or maybe even make a duplicate of current repo and then revert to earlier version...
 
 10/26/2022 Wednesday (one month is done... how am i doing?  I think I am making exceptional progress. Just have to keep at it each day. Preferrably even weekend days, even if just to a smaller extent.)
+
+12/1/2022 Thursday - This project is now officially about 5 months in and I am on the second month of attempting to make programming a daily thing. It has not worked at all times, however it has been an overall plus.
+
+Plan: What I am going to do next for this project is refactor a bit.  I am going to basically make some backend data structure that tracks my responses and it is either going to be part of the original grid object, or will be a separate object that corresponds to the original grid object.  Maybe I could record each response, the coordinates, and the result of that response.  This is somewhat similar to the object I created called "hitRecord" or something but it has additional information including for coordinates and also when you miss.  Recursioning thorugh it will be a little more complex, but not bad. Result will either be null or the name of a hit.
+
+12/4/2022 Sunday - I was here. Part of mid-morning habit stack.
+
+12/5/2022 Monday - I was here. 11:36am. Part of mid-morning habit stack.
+Need to research import/export here:
+https://www.scaler.com/topics/javascript/import-js-file-in-js/
+
+12/6/2022 Tuesday - Two options for running a web server (need this in order to run my ES6ModuleTest example)
+https://www.youtube.com/watch?v=nx8E5BF0XuE
+https://stackoverflow.com/questions/70283259/include-a-js-file-directly-in-another
+I ran a web server and was able to get the module thing working that is part of Visual Studio Code. Next you can see how far you can take this.
+Starting to get a programming streak going. Just keep at it.
+
+12/9/2022 Friday - I was here. 12:24pm.
+Some cool JS tips: https://javascript.plainenglish.io/12-javascript-tips-tricks-that-i-use-every-day-bonus-126557cb4d62
+2. Use console.trace to log with a stack trace. Easily find what’s happening inside your application at a certain point by logging a stack track with console.trace
+
+12/10/2022 Saturday - briefly looked at exporting (separate project currently)
+
+12/11/2022 Sunday - SKIP DAY
+
+12/12/2022 Monday - Read about differences between var, let and const
+Added a functiont to the export / import project and it worked well.
+
+12/13/2022 Tuesday - Tried to add import export into my main project, but I got a variety of errors. Back to the drawing board on this one. Or for now, I can simply stick a fork in it and move on to the next issue in my Battleship program...  So that is back to the plan to refactor the code and make objects that track the progress of the player into a javascript object.
+
+12/14/2022 Wednesday - 1:02pm organized objects section of script so I can think critically about what I am tracking and how to track it in one or a few objects.
+12/15/2022 Thursday - looked briefly at what is affected by what in prep for refactoring.
+12/16 xx
+12/17 xx
+12/18 xx
+12/19/2022 Monday - I was reading about frameworks for JavaScript thinking that I'd like to return to TDD for this project.
+What I found especially is that React is easier to learn than Angular, and also that Jest is top of the UNIT testing popularity in 2022 (which is what I am looking for)
+I am also thinking that pushing myself to learn some frameworks might actually speed up my learning for even vanilla javascript.  Even though I have had trouble
+with import export functionality in JavaScript, you should not take that as prohibiting you from setting up a framework.  Actually - you may find the.
+
+Still a little bit convinced I should use export - import logic in vanilla js:
+https://www.geeksforgeeks.org/difference-between-module-exports-and-exports-in-node-js
+Next time go over the above and see if you can get it working - then take another stab at your own project.
+
+12/20 xx
+12/21/2022 Tuesday - I was reading about frameworks for testing JavaScript.  The one that is labeled as the easiest to learn is
+called "Jest" which is supported by the React team.  React seems to be the framework with the most jobs on Indeed... seems like a simple choice.
+React has ~180 jobs
+Angular has ~170 jobs
+nodejs has ~68 jobs
+
+12/22/2022 Wednesday - Rather Angular and Jasmine is a sensible stack for front-end.  Also matches what we have at UPMC
+UPDATE UPDATE UPDATE - I researched and solved the follwing two errors (first one I figured out a while ago, second one just got it)
+1. Uncaught SyntaxError: Cannot use import statement outside a module
+The fix for this is to add type="module"  to you script tag in the html document.
+2. Uncaught SyntaxError: Export 'x' is not defined in module
+The fix for this was to give my variable declaration a "var" (it was missing which is a crazy mistake!!!!!!!!!!!!!)
+FINALLY - when I run it now - the import works and my code runs, and even if I use it running with "Open Live Server" the server will
+reload the whole thing when you save a file in the directory.j
+GIVEN THIS BREAKTHROUGH - I CAN ONCE AGAIN ABANDON USING SOME COMPLICATED FRAMEWORK AND RESUME USING VANILLA JAVASCRIPT :) :) :)
+
+
+
+NEXT -> try to break down the javascript bit by bit so that for example:
+1. tests are in their own file
+2. backend potential stuff in another file
+3. frontend potential stuff in another file
+ALSO NEXT -> Make sure you make a commit of your work

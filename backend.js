@@ -1,6 +1,8 @@
-//////////////////////////////////////////////////////
-// ------------------- OBJECTS --------------------//
-//////////////////////////////////////////////////////
+import { x } from './testOnly.js'
+
+  /////////////////////////////////////////////////////
+ // ------------------- OBJECTS --------------------//
+/////////////////////////////////////////////////////
 const gridWidth = 10;
 const gridHeight = 10;
 const shipLengths = {         // key/value pairs in object
@@ -10,9 +12,18 @@ const shipLengths = {         // key/value pairs in object
     submarine:  3,
     destroyer:  2
 };
+const shipTypes = Object.keys(shipLengths);
 const directions = ["horizontal","vertical"];
 let mainGrid;
-
+  //////////////////////////////////////////
+ // --OBJECTS related to GAME PROGRESS--///
+//////////////////////////////////////////
+let attemptsTaken = 0;  // processAttempt()
+var shipHits = [];      // processAttempt() checkShipStatus()   checkAllShipStatus()
+var sunkenShips = [];   // checkShipStatus()
+  //////////////////////////////////////////
+ // --OBJECTS related to TEST RESULTS-- ///
+//////////////////////////////////////////
 const test_name = ">>> Test Name: "
 const test_validation = "   EXPECT: "
 const test_indent = "    >  ";
@@ -20,11 +31,14 @@ const test_note = "    *  ";
 const test_result_pass = "RESULT: PASS             :)";
 const test_result_fail = "RESULT: FAIL                 :(";
 const test_debugging = "    !  "
+//\\\\\\\\\\\\\\\\\\\
+//--END of OBJECTS--\\
+//\\\\\\\\\\\\\\\\\\\\\
 
-window.onload = function() {
 //////////////////////////////////////////////////////
 // ------------------- RUN TESTS --------------------//
 //////////////////////////////////////////////////////
+window.onload = function() {
     getBlankGrid_spec();
     getRandomDirection_spec();
     getRandomCoordinate_spec();
@@ -34,7 +48,9 @@ window.onload = function() {
 //////////////////////////////////////////////////////
 // ------------------- MAKE DATA --------------------//
 //////////////////////////////////////////////////////
-    mainGrid = buildMainGrid();
+    document.getElementById('simpleGame').onclick = makeGame;
+    document.getElementById('giveUpButton').onclick = giveUp;
+
 }
 
 function getBlankGrid(){ // Create a blank 10x10 grid in Javascript only --- note that it is represented as grid[y][x] which is counterintuitive, but easy to preview in js
@@ -263,6 +279,120 @@ function buildMainGrid_spec(){
     console.log(testGrid);
 }
 
-function drawMaskedGrid(){
-    
+function makeGame(){
+    mainGrid = buildMainGrid();
+    drawStartingBoard(mainGrid);
+    removeStartButton();
+}
+
+function drawStartingBoard(grid){
+    var table = document.getElementById("currentGameBoard");
+    for (let rowId = 0; rowId < grid.length; rowId++) {
+        var row = document.createElement("tr");
+        row.setAttribute("row",rowId);
+        table.appendChild(row);
+        for (let columnId = 0; columnId < grid[rowId].length; columnId++) {
+            var boardSpace = document.createElement("td")
+            boardSpace.className = 'masked';
+            boardSpace.setAttribute("column",columnId);
+            boardSpace.onclick = processAttempt;
+            row.appendChild(boardSpace);
+        }        
+    }
+}
+
+function removeStartButton(){
+    var startButton = document.getElementById("simpleGame");
+    startButton.remove();
+}
+
+function processAttempt(){
+    attemptsTaken++;
+    var selectedColumn = this.getAttribute("column");
+    var selectedRow = this.parentElement.getAttribute("row");
+    var valueOfSelection = mainGrid[selectedRow][selectedColumn];
+    document.getElementById("gameProgress").innerHTML = "Attempt #" + attemptsTaken + ': row=' + selectedRow + ", column=" + selectedColumn;
+    // TODO: search "append text to end of elemnet" and try to fix the above 
+    console.log("Attempt #" + attemptsTaken + ': row=' + selectedRow + ", column=" + selectedColumn);
+    if (valueOfSelection == 0) {
+        this.onclick = null;
+        this.className = 'miss';
+        document.getElementById("turnResult").innerHTML = "So sad, you missed. Mwo-haha-haha!"
+    } else {
+        this.onclick = null;
+        this.className = 'hit';
+        document.getElementById("turnResult").innerHTML = "A hit."
+        shipHits.push(valueOfSelection);
+    }
+    var shipWasSunk = checkShipStatus(valueOfSelection);
+    if (shipWasSunk == true){
+        checkAllShipsStatus();
+    }
+}   
+
+function checkShipStatus(valueOfSelection){
+    var shipHitCounter = 0;
+    shipHits.forEach(ship => {
+        if(valueOfSelection == ship){
+            shipHitCounter++;
+        }
+    });
+    if (shipHitCounter == shipLengths[valueOfSelection]){
+        document.getElementById("turnResult").innerHTML = "You sunk my " + valueOfSelection + " !";
+        // new function reveal sunken ship???
+        // at this point you need to change the class for each of the coordinates corresponding to the sunken ship.
+        sunkenShips.push(valueOfSelection);
+        return true;
+    }
+}
+
+// WORK ON THIS NEXT --- use it inside of the above function to mark sunken ships as such.
+function getCoordinateSetForShip(shipName){
+    var coordinateSet = [];
+    for (let row = 0; row < mainGrid.length; row++) {
+        for (let column = 0; column < mainGrid[row].length; column++) {
+            if (shipName == mainGrid[row][column]) {
+                coordinateSet.push([row,column]);
+            }
+        }
+    }
+    return coordinateSet;
+}
+
+function giveUp(){
+    for (let rowId = 0; rowId < mainGrid.length; rowId++) {
+        for (let columnId = 0; columnId < mainGrid[rowId].length; columnId++) {
+            var cellValue = mainGrid[rowId][columnId];
+            var element = document.querySelector("[row='" + rowId + "'] [column='" + columnId + "']");
+            if (cellValue == 0) {
+                element.onclick = null;
+                element.className = 'miss';
+            } else {
+                element.onclick = null;
+                element.className = 'hit';
+            }        
+        }
+    }
+}
+
+function checkAllShipsStatus(){
+    var allShipsSunk = false;
+    for (let index = 0; index < shipTypes.length; index++) {
+        var hitCounter = 0;
+        var shipName = shipTypes[index];
+        shipHits.forEach(ship => {
+            if (ship == shipName){
+                hitCounter++;
+            }
+        });
+        if (hitCounter != shipLengths[shipName]){
+            break;
+        } else if (index == shipTypes.length - 1){
+            allShipsSunk = true;
+        }
+    }
+    if(allShipsSunk == true){
+        giveUp();
+        document.getElementById("turnResult").innerHTML = "You sunk all my ships!!!!!!!!!!!!!!!!!!!!!!!!";
+    }
 }

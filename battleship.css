@@ -16,6 +16,7 @@ td.masked {
 td.miss {
   background:         white;
   border-radius:      50%;
+  hover:              
 }
 td.hit {
   background:         red;  
