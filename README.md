@@ -131,13 +131,13 @@ https://www.geeksforgeeks.org/difference-between-module-exports-and-exports-in-n
 Next time go over the above and see if you can get it working - then take another stab at your own project.
 
 12/20 xx
-12/21/2022 Tuesday - I was reading about frameworks for testing JavaScript.  The one that is labeled as the easiest to learn is
+12/21/2022 Wednesday - I was reading about frameworks for testing JavaScript.  The one that is labeled as the easiest to learn is
 called "Jest" which is supported by the React team.  React seems to be the framework with the most jobs on Indeed... seems like a simple choice.
 React has ~180 jobs
 Angular has ~170 jobs
 nodejs has ~68 jobs
 
-12/22/2022 Wednesday - Rather Angular and Jasmine is a sensible stack for front-end.  Also matches what we have at UPMC
+12/22/2022 Thursday - Rather Angular and Jasmine is a sensible stack for front-end.  Also matches what we have at UPMC
 UPDATE UPDATE UPDATE - I researched and solved the follwing two errors (first one I figured out a while ago, second one just got it)
 1. Uncaught SyntaxError: Cannot use import statement outside a module
 The fix for this is to add type="module"  to you script tag in the html document.
@@ -154,3 +154,13 @@ NEXT -> try to break down the javascript bit by bit so that for example:
 2. backend potential stuff in another file
 3. frontend potential stuff in another file
 ALSO NEXT -> Make sure you make a commit of your work
+
+12/23/2022 Friday - I didn't really code. I just published the branch with all this import export module stuff.
+12/24/2022 Saturday (early morning actually starting at midnight) - I determined that I will break out all my testing / spec stuff into 
+the newly created "backend_spec.js" file, however I got tired after a while and so that is mid-stream.
+12/25 xx
+12/26 xx
+12/27 xx
+12/28 Wednesday - recontinued with moving code over. To be continued...
+Feedback from Ross on game - ideas that would require persistence - score keeping, rankings. Names and rankings like an arcade game.
+12/29 Thursday - 
