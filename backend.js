@@ -1,6 +1,9 @@
-import { x, test_name, test_validation, test_note, test_indent, test_result_fail, test_result_pass, test_debugging,
-getBlankGrid_spec } from './backend_spec.js'
-
+export {
+    gridWidth, gridHeight, attemptsTaken, buildMainGrid, checkAllShipsStatus, checkShipStatus, directions, drawStartingBoard, 
+    getBlankGrid, getCoordinateSetForShip, getRandomCoordinate, getRandomDirection, giveUp, mainGrid, makeGame, placeOneShip, processAttempt,
+    removeStartButton, shipHits, shipLengths, shipPlacementAvailability, shipTypes, sunkenShips
+  };
+  
   /////////////////////////////////////////////////////
  // ------------------- OBJECTS --------------------//
 /////////////////////////////////////////////////////
@@ -30,9 +33,10 @@ var sunkenShips = [];   // checkShipStatus()
 //////////////////////////////////////////////////////
 // ------------------- MAKE DATA --------------------//
 //////////////////////////////////////////////////////
+window.onload = function() {
     document.getElementById('simpleGame').onclick = makeGame;
     document.getElementById('giveUpButton').onclick = giveUp;
-
+}
 
 function getBlankGrid(){ // Create a blank 10x10 grid in Javascript only --- note that it is represented as grid[y][x] which is counterintuitive, but easy to preview in js
     var grid = [];
@@ -49,17 +53,6 @@ function getBlankGrid(){ // Create a blank 10x10 grid in Javascript only --- not
 function getRandomDirection(){
     var randomDirection = directions[Math.floor(Math.random()*directions.length)];
     return randomDirection;
-}
-
-function getRandomDirection_spec(){
-    console.log(test_name + "getRandomDirection_spec");
-    console.log(test_validation + "direction is returned");
-    var randomDirection = getRandomDirection();
-    if(randomDirection == "vertical" || randomDirection == "horizontal"){
-        console.log(test_indent + test_result_pass);
-    } else {
-        console.log(test_indent + test_result_fail);
-    }
 }
 
 function getRandomCoordinate(){

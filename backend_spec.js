@@ -1,3 +1,9 @@
+import {
+    gridWidth, gridHeight, attemptsTaken, buildMainGrid, checkAllShipsStatus, checkShipStatus, directions, drawStartingBoard, 
+    getBlankGrid, getCoordinateSetForShip, getRandomCoordinate, getRandomDirection, giveUp, mainGrid, makeGame, placeOneShip, processAttempt,
+    removeStartButton, shipHits, shipLengths, shipPlacementAvailability, shipTypes, sunkenShips
+} from './backend.js';
+
 //////////////////////////////////////////////////////
 // ------------------- RUN TESTS --------------------//
 //////////////////////////////////////////////////////
@@ -21,11 +27,16 @@ const test_result_pass = "RESULT: PASS             :)";
 const test_result_fail = "RESULT: FAIL                 :(";
 const test_debugging = "    !  "
 
-var x = 1
-export {
-    x, test_name, test_validation, test_note, test_indent, test_result_fail, test_result_pass, test_debugging,
-    getBlankGrid_spec
-  }
+function getRandomDirection_spec(){
+    console.log(test_name + "getRandomDirection_spec");
+    console.log(test_validation + "direction is returned");
+    var randomDirection = getRandomDirection();
+    if(randomDirection == "vertical" || randomDirection == "horizontal"){
+        console.log(test_indent + test_result_pass);
+    } else {
+        console.log(test_indent + test_result_fail);
+    }
+}
 
 function getBlankGrid_spec(){
     console.log(test_name + "getBlankGrid_spec");
@@ -140,7 +151,6 @@ function buildMainGrid_spec(){
             }        
         }
         if(shipLength == shipLengths[shipName]){
-            // console.log(test_indent + shipName + " has passed!");
             passingShips++;
         } else {
             console.log(test_indent + test_result_fail);
