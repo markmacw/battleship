@@ -174,7 +174,8 @@ The next thing you would want to do to get a nicer view of your test cases is pr
 Then I am not going to make any entry.
 
 Today - it is apparent that I am now able to run the unit tests separate from the application.
-This is through the use of import and export and it is functioning now.
+This is through the use of import and export and it is functioning now.  Made committ and now the next step is to implement a unit testing framework.
+... Jest
 01/03 Tuesday -
 01/04 Wednesday - 
 01/05 Thursday - 
