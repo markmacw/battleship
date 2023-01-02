@@ -167,4 +167,16 @@ Feedback from Ross on game - ideas that would require persistence - score keepin
 I could potentially make the html page more ornate to support displaying the unit tests, but I think that is probably overkill.
 The next thing you would want to do to get a nicer view of your test cases is probably to use a framework such as Jest.
 
-*** IN 2023 - I HOPE TO BE ABLE TO MAKE AN ENTRY INTO THIS README EVERY SINGLE DAY ***
+*** FOR 2023 - STRIVE TO MAKE AN ENTRY TO THIS FILE EVERY DAY UNTIL THE PROJECT IS COMPLETE ***
+***WEEK ONE*** 
+01/01 xx
+01/02 Monday - Okay - so I immediately missed the first day and did not make any entry into this. Part of the problem is that if I don't have my computer,
+Then I am not going to make any entry.
+
+Today - it is apparent that I am now able to run the unit tests separate from the application.
+This is through the use of import and export and it is functioning now.
+01/03 Tuesday -
+01/04 Wednesday - 
+01/05 Thursday - 
+01/06 Friday - 
+01/07 Saturday - 
