@@ -1,0 +1,23 @@
+{
+  "name": "battleship",
+  "version": "1.0.0",
+  "description": "Adding npm and then later Jest",
+  "main": "backend.js",
+  "scripts": {
+    "test": "test",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/markmacw/battleship.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/markmacw/battleship/issues"
+  },
+  "homepage": "https://github.com/markmacw/battleship#readme",
+  "devDependencies": {
+    "jest": "^29.3.1"
+  }
+}
