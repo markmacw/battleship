@@ -176,7 +176,20 @@ Then I am not going to make any entry.
 Today - it is apparent that I am now able to run the unit tests separate from the application.
 This is through the use of import and export and it is functioning now.  Made committ and now the next step is to implement a unit testing framework.
 ... Jest
-01/03 Tuesday -
+What I am going to work on next:
+   1. Install a project using / beginning with node.js
+   2. Add in all your files
+   3. Save the project
+   4. Add Jest
+   5. Code one thing using Jest and see that it works
+   6. Save the project again.
+01/03 Tuesday - added app.js and ran a node.js server 
+ Pick up here next time: https://nodejs.dev/en/learn/
+ Commands used setting stuff up:
+ > npm init (got me the package.json setup)
+ > npm install (got me the package-lock.json setup)
+ > npm install --save-deve jest (got me the node_modules folder with a bunch of stuff,
+    including "jest" stuff)
 01/04 Wednesday - 
 01/05 Thursday - 
 01/06 Friday - 
