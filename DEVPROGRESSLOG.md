@@ -190,7 +190,8 @@ What I am going to work on next:
  > npm install (got me the package-lock.json setup)
  > npm install --save-deve jest (got me the node_modules folder with a bunch of stuff,
     including "jest" stuff)
-01/04 Wednesday - 
+01/04 Wednesday - https://javascript.plainenglish.io/testing-vanilla-javascript-with-jest-8a7eaca80d40
+ > npm run test
 01/05 Thursday - 
 01/06 Friday - 
 01/07 Saturday - 

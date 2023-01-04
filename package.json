@@ -3,11 +3,11 @@
   "version": "1.0.0",
   "description": "Adding npm and then later Jest",
   "main": "backend.js",
-  "scripts": {
-    "test": "test",
-    "start": "node server.js"
-  },
-  "repository": {
+
+    "scripts": {
+      "test": "jest"
+    },
+    "repository": {
     "type": "git",
     "url": "git+https://github.com/markmacw/battleship.git"
   },
