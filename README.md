@@ -6,3 +6,5 @@ The idea for this project was originally generated from the book "Head First Jav
     requirements and coding solutions.  This has proven thus far to be a more compelling learning practice for me
     at this point, so the shift has been a success.  I plan to build out the project just to the point that the actual
     game itself is fun to use.
+
+[Enter the game here](https://markmacw.github.io/battleship/)
